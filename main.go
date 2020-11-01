@@ -4,5 +4,13 @@ import(
 )
 
 func main(){
-	fmt.Println("App initiated!!!!")
+	dataManagement := file{
+		nameFile : "data/todolist.txt",
+	}
+
+	dataManagement.saveDataFile("todolist saved!!")
+
+	contentFile := dataManagement.loadContentFile()
+
+	fmt.Println("Display loaded file ", contentFile)
 }
