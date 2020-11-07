@@ -4,22 +4,12 @@ import(
 )
 
 func main(){
-	//for the moment all dataManagement files are comments because it will be use later
-	/*dataManagement := file{
-		nameFile : "data/todolist.txt",
-	}
-
-	dataManagement.saveDataFile("todolist saved!!")
-
-	contentFile := dataManagement.loadContentFile()
-
-	fmt.Println("Display loaded file ", contentFile)*/
-
 	fmt.Println("Start")
 	taskManager := taskManager{
 		tasks : make(map[string]task),
 	}
-
+	taskManager.initTaskManager("data/todolist.txt")
+	
 	firstTask := task{}
 	firstTask.setTask("eat","DOING")
 	taskManager.addTask(firstTask)
@@ -28,13 +18,15 @@ func main(){
 	secondTask.setTask("clean","TODO")
 	taskManager.addTask(secondTask)	
 
-	displayTaks(taskManager)
-
+	thirsdTask := task{}
+	thirsdTask.setTask("run","DID")
+	taskManager.addTask(thirsdTask)	
+	
 	taskManager.removeTask(firstTask.name)
 
-	displayTaks(taskManager)
-
-	taskManager.updateStatus(secondTask,"DOING")
+	taskManager.updateStatus(secondTask,"DOING")	
+		
+	taskManager.saveAllTask()
 
 	displayTaks(taskManager)
 
@@ -42,7 +34,15 @@ func main(){
 }
 
 func displayTaks(tm taskManager){
+	content := tm.displayAllTask()
+	fmt.Println(content)
+}
+
+//TODO to delete 
+func check(tm taskManager){
+	fmt.Println("check")
 	for _, task := range tm.tasks{
 		fmt.Println(task.name, task.status)
 	}
+	fmt.Println("fin du check")
 }

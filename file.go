@@ -13,7 +13,7 @@ type file struct{
 func (f file) loadContentFile() string{
 	bs, err := ioutil.ReadFile(f.nameFile)
 	if err != nil{
-		fmt.Println("Error:", err)
+		fmt.Println("Error: ", err)
 		os.Exit(1)
 	}
 	content := string(bs)
