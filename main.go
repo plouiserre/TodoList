@@ -4,18 +4,21 @@ import(
 )
 
 func main(){
-	fmt.Println("Start")
+	fmt.Println("Start task")
 	taskManager := taskManager{
 		tasks : make(map[string]task),
 	}
+
 	taskManager.initTaskManager("data/todolist.txt")
+
+	taskManager.fileManager.flushFile()
 	
 	firstTask := task{}
 	firstTask.setTask("eat","DOING")
 	taskManager.addTask(firstTask)
 
 	secondTask := task{}
-	secondTask.setTask("clean","TODO")
+	secondTask.setTask("code","TODO")
 	taskManager.addTask(secondTask)	
 
 	thirsdTask := task{}
@@ -26,15 +29,38 @@ func main(){
 
 	taskManager.updateStatus(secondTask,"DOING")	
 		
-	taskManager.saveAllTask()
+	taskManager.saveAllTasks()
 
-	displayTaks(taskManager)
+	fmt.Println("Finish task")
 
-	fmt.Println("Finish")
+	fmt.Println("Start category")
+	categoryManager := categoryManager{
+		categories : make(map[string]category),
+	}
+
+	categoryManager.initCategoryManager("data/todolist.txt")
+	
+	firstCategory := category{}
+	firstCategory.setCategoryName("FOOD")
+	categoryManager.addCategory(firstCategory)
+
+	secondCategory := category{}
+	secondCategory.setCategoryName("PHYSICAL")
+	categoryManager.addCategory(secondCategory)	
+	
+	categoryManager.removeCategory(firstCategory.name)
+
+	categoryManager.updateStatus(secondCategory,"VARIED")	
+		
+	categoryManager.saveAllCategories()	
+
+	displayEntities(taskManager)
+
+	fmt.Println("Finish task")
 }
 
-func displayTaks(tm taskManager){
-	content := tm.displayAllTask()
+func displayEntities(tm taskManager){
+	content := tm.fileManager.displayAllTask()
 	fmt.Println(content)
 }
 
