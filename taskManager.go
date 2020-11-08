@@ -2,11 +2,11 @@ package main
 
 type taskManager struct {
 	tasks map[string]task
-	fileManager file
+	fileManager fileManager
 }
 
 func (tm *taskManager) initTaskManager(fileName string){
-	tm.fileManager = file {
+	tm.fileManager = fileManager {
 		nameFile : fileName,
 	} 
 }
@@ -37,19 +37,15 @@ func (tm *taskManager) removeTask(name string){
 	delete(tm.tasks, name)
 }
 
-func (tm *taskManager) displayAllTask() string{
-	contentFile := tm.fileManager.loadContentFile()
-	return contentFile
-}
-
-func(tm *taskManager) saveAllTask(){
-	contentToWrite := ""
+func(tm *taskManager) saveAllTasks(){
+	contentToWrite := tm.fileManager.loadContentFile()
 	for _, task := range tm.tasks{
 		if (contentToWrite==""){
 			contentToWrite = task.name+" "+task.status
 		} else {
-			contentToWrite = contentToWrite+"\n"+task.name+" "+task.status
+			contentToWrite +="\n"+task.name+" "+task.status
 		}
 	}
 	tm.fileManager.saveDataFile(contentToWrite)
 }
+
