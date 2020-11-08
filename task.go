@@ -3,11 +3,13 @@ package main
 type task struct {
 	name string 
 	status string
+	category category
 }
 
-func (t *task) setTask(name string, status string){
+func (t *task) setTask(name string, status string, taskCategory category){
 	t.name = name
 	t.updateStatus(status)
+	t.category = taskCategory
 }
 
 func (t *task) updateStatus (status string){

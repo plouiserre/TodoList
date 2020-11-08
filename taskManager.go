@@ -48,4 +48,3 @@ func(tm *taskManager) saveAllTasks(){
 	}
 	tm.fileManager.saveDataFile(contentToWrite)
 }
-
