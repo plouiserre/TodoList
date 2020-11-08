@@ -4,39 +4,13 @@ import(
 )
 
 func main(){
-	fmt.Println("Start task")
-	taskManager := taskManager{
-		tasks : make(map[string]task),
-	}
-
-	taskManager.initTaskManager("data/todolist.txt")
-
-	taskManager.fileManager.flushFile()
-	
-	firstTask := task{}
-	firstTask.setTask("eat","DOING")
-	taskManager.addTask(firstTask)
-
-	secondTask := task{}
-	secondTask.setTask("code","TODO")
-	taskManager.addTask(secondTask)	
-
-	thirsdTask := task{}
-	thirsdTask.setTask("run","DID")
-	taskManager.addTask(thirsdTask)	
-	
-	taskManager.removeTask(firstTask.name)
-
-	taskManager.updateStatus(secondTask,"DOING")	
-		
-	taskManager.saveAllTasks()
-
-	fmt.Println("Finish task")
-
-	fmt.Println("Start category")
 	categoryManager := categoryManager{
 		categories : make(map[string]category),
 	}
+	taskManager := taskManager{
+		tasks : make(map[string]task),
+	}
+	fmt.Println("Start process")	
 
 	categoryManager.initCategoryManager("data/todolist.txt")
 	
@@ -47,16 +21,41 @@ func main(){
 	secondCategory := category{}
 	secondCategory.setCategoryName("PHYSICAL")
 	categoryManager.addCategory(secondCategory)	
-	
-	categoryManager.removeCategory(firstCategory.name)
 
-	categoryManager.updateStatus(secondCategory,"VARIED")	
+	thirdCategory := category{}
+	thirdCategory.setCategoryName("COMPUTING")
+	categoryManager.addCategory(thirdCategory)	
+	
+	taskManager.initTaskManager("data/todolist.txt")
+
+	taskManager.fileManager.flushFile()
+	
+	firstTask := task{}
+	firstTask.setTask("eat","DOING",firstCategory)
+	taskManager.addTask(firstTask)
+
+	secondTask := task{}
+	secondTask.setTask("code","TODO", thirdCategory)
+	taskManager.addTask(secondTask)	
+
+	thirsdTask := task{}
+	thirsdTask.setTask("run","DID", secondCategory)
+	taskManager.addTask(thirsdTask)	
+	
+	taskManager.removeTask(firstTask.name)
+
+	taskManager.updateStatus(secondTask,"DOING")	
+		
+	taskManager.saveAllTasks()
+	
+	categoryManager.removeCategory(taskManager.tasks, firstCategory.name)
+	categoryManager.removeCategory(taskManager.tasks, secondCategory.name)
 		
 	categoryManager.saveAllCategories()	
 
-	displayEntities(taskManager)
+	fmt.Println("Finish process")
 
-	fmt.Println("Finish task")
+	displayEntities(taskManager)
 }
 
 func displayEntities(tm taskManager){

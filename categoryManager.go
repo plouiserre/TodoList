@@ -28,15 +28,10 @@ func (c *categoryManager) isElementExist(name string) bool{
 	return isExist
 }
 
-func (c *categoryManager) updateStatus(cat category, newCategoryName string){
-	oldName := cat.name
-	cat.setCategoryName(newCategoryName)
-	c.removeCategory(oldName)
-	c.addCategory(cat)
-}
-
-func (c *categoryManager) removeCategory(name string){
-	delete(c.categories, name)
+func (c *categoryManager) removeCategory(tasks map[string]task, name string){
+	if isCategoryUsed(tasks, name) == false{
+		delete(c.categories, name)
+	}
 }
 
 func(c *categoryManager) saveAllCategories(){
@@ -49,4 +44,15 @@ func(c *categoryManager) saveAllCategories(){
 		}
 	}
 	c.fileManager.saveDataFile(contentToWrite)
+}
+
+func  isCategoryUsed (tasks map[string]task, categoryName string) bool {
+	isLinked := false 
+	for _, task := range tasks{
+		if task.category.name == categoryName{
+			isLinked = true
+			break
+		}
+	}
+	return isLinked
 }
