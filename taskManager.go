@@ -48,3 +48,23 @@ func(tm *taskManager) saveAllTasks(){
 	}
 	tm.fileManager.saveDataFile(contentToWrite)
 }
+
+func(tm *taskManager) getTasksByStatus(statusSearch string) []task{
+	tasks := []task{}
+	for _, task := range tm.tasks{
+		if task.status == statusSearch{
+			tasks = append(tasks, task)
+		}
+	}
+	return tasks
+}
+
+func (tm *taskManager) getTasksByCategory(taskCategory category) []task{
+	tasks := []task{}
+	for _, task := range tm.tasks{
+		if task.category == taskCategory{
+			tasks = append(tasks, task)
+		}
+	}
+	return tasks
+}

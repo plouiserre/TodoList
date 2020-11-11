@@ -45,6 +45,10 @@ func main(){
 	taskManager.removeTask(firstTask.name)
 
 	taskManager.updateStatus(secondTask,"DOING")	
+
+	displayTasksSpecificStatus(taskManager, "DID")
+
+	displayTasksSpecificCategory(taskManager, secondCategory)
 		
 	taskManager.saveAllTasks()
 	
@@ -67,7 +71,25 @@ func displayEntities(tm taskManager){
 func check(tm taskManager){
 	fmt.Println("check")
 	for _, task := range tm.tasks{
-		fmt.Println(task.name, task.status)
+		fmt.Println(task.name, task.status," ", task.category.name)
 	}
 	fmt.Println("fin du check")
+}
+
+func displayTasksSpecificStatus(tm taskManager, status string){
+	fmt.Println("Affichage des tâches du statut ", status)
+	tasks := tm.getTasksByStatus(status)
+	for _, task := range tasks{
+		fmt.Println(task.name," ", task.status," ", task.category.name)
+	}
+	fmt.Println("Fin des tâches")
+}
+
+func displayTasksSpecificCategory(tm taskManager, taskCategory category){
+	fmt.Println("Affichage des tâches de la catégorie ", taskCategory)
+	tasks := tm.getTasksByCategory(taskCategory)
+	for _, task := range tasks{
+		fmt.Println(task.name," ", task.status," ", task.category.name)
+	}
+	fmt.Println("Fin des tâches")
 }
