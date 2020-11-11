@@ -9,6 +9,7 @@ FileManager DONE
 CRUD task DONE   
 Save task file DONE  
 CRUD category DONE  
-Link category with task TODO  
-Display task by status, category and both TODO  
+Link category with task DONE  
+Display task by status, category and both DONE  
 Create an CLI client functional TODO  
+Clean Code TODO
