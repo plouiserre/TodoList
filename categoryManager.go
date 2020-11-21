@@ -28,9 +28,12 @@ func (c *categoryManager) isElementExist(name string) bool{
 	return isExist
 }
 
-func (c *categoryManager) removeCategory(tasks map[string]task, name string){
+func (c *categoryManager) removeCategory(tasks map[string]task, name string) bool {
 	if isCategoryUsed(tasks, name) == false{
 		delete(c.categories, name)
+		return true
+	}else {
+		return false
 	}
 }
 
