@@ -12,11 +12,12 @@ func (t *task) setTask(name string, status string, taskCategory category){
 	t.category = taskCategory
 }
 
-func (t *task) updateStatus (status string){
+func (t *task) updateStatus (status string)bool {
 	isValid := isValidStatus(status)
 	if isValid{
 		t.status = status
 	}
+	return isValid
 }
 
 func isValidStatus(statusToCheck string) bool{
